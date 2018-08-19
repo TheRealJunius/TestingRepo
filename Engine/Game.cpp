@@ -42,4 +42,15 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	int COLOR = 0;
+	for (int i = 0; i < 32; i++)
+	{
+		for (int j = 0; j < 16; j++)
+		{
+			Color c(COLOR , COLOR + 5, COLOR + 25);
+			Location loc = { i,j };
+			grd.DrawCell(gfx, loc, c);
+		}
+		COLOR += 10;
+	}
 }
