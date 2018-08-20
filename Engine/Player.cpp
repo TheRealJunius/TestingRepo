@@ -1,6 +1,26 @@
 #include "Player.h"
 #include <assert.h>
 
+void Player::ClampToScreen()
+{
+	if (loc.x >= Grid::Rows)
+	{
+		loc.x = Grid::Rows - 1;
+	}
+	if (loc.x < 0)
+	{
+		loc.x = 0;
+	}
+	if (loc.y >= Grid::Columns)
+	{
+		loc.y = Grid::Columns - 1;
+	}
+	if (loc.y < 0)
+	{
+		loc.y = 0;
+	}
+}
+
 Player::Player(const Location in_loc)
 {
 	loc = in_loc;
@@ -44,5 +64,6 @@ void Player::Update(Keyboard& kbd, int& mC, int mP, float dt)
 	{
 		mC = 0;
 		MoveBy(delta_loc);
+		ClampToScreen();
 	}
 }

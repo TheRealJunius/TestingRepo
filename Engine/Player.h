@@ -7,6 +7,8 @@
 
 class Player
 {
+private:
+	void ClampToScreen();
 public:
 	Player(const Location in_loc);
 	void MoveBy(const Location delta_loc);
