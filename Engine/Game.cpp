@@ -42,15 +42,12 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	int COLOR = 0;
-	for (int i = 0; i < 32; i++)
+	for (int i = 0; i < Grid::Rows; i++)
 	{
-		for (int j = 0; j < 16; j++)
+		for (int j = 0; j < Grid::Columns; j++)
 		{
-			Color c(COLOR , COLOR + 5, COLOR + 25);
 			Location loc = { i,j };
-			grd.DrawCell(gfx, loc, c);
+			grd.DrawCell(gfx, loc, Colors::White);
 		}
-		COLOR += 10;
 	}
 }
