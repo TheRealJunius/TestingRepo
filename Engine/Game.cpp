@@ -47,7 +47,7 @@ void Game::ComposeFrame()
 		for (int j = 0; j < Grid::Columns; j++)
 		{
 			Location loc = { i,j };
-			grd.DrawCell(gfx, loc, Colors::White);
+			grd.DrawCell(loc, Colors::White);
 		}
 	}
 }

@@ -6,11 +6,14 @@
 
 class Grid
 {
+private:
+	Graphics& gfx;
 public:
 	static constexpr int Rows = 16; //32
 	static constexpr int Columns = 12; //16
 	static constexpr int CellDimensions = 50; //32
 	static constexpr int Spacing = 0; //6
 
-	void DrawCell(Graphics& gfx, Location loc, Color c);
+	Grid(Graphics& gfx);
+	void DrawCell(Location loc, Color c);
 };
