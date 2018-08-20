@@ -24,13 +24,15 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	grd(gfx),
+	player(Location{Grid::Rows /2 - 1, Grid::Columns - 1})
 {
 }
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
+	gfx.BeginFrame();
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();
@@ -38,16 +40,10 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	player.Update(wnd.kbd, MoveCounter, MovePeriod, 1);
 }
 
 void Game::ComposeFrame()
 {
-	for (int i = 0; i < Grid::Rows; i++)
-	{
-		for (int j = 0; j < Grid::Columns; j++)
-		{
-			Location loc = { i,j };
-			grd.DrawCell(loc, Colors::White);
-		}
-	}
+	player.Draw(grd);
 }

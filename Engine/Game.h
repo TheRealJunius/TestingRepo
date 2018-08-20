@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Grid.h"
 #include "Location.h"
+#include "Player.h"
 
 class Game
 {
@@ -45,5 +46,8 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Grid grd;
+	Player player;
+	static constexpr int MovePeriod = 10;
+	int MoveCounter = 0;
 	/********************************/
 };
