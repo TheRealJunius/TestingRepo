@@ -3,6 +3,7 @@
 #include "Graphics.h"
 #include "Vec2.h"
 #include "Colors.h"
+#include "World.h"
 
 class Grid
 {
@@ -16,4 +17,5 @@ public:
 
 	Grid(Graphics& gfx);
 	void DrawCell(Vec2 loc, Color c);
+	void DrawCell(Vec2 loc, World::Block::BlockType type);
 };
