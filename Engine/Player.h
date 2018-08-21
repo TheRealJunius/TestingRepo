@@ -13,8 +13,10 @@ public:
 	Player(const Location in_loc);
 	void MoveBy(const Location delta_loc);
 	void Draw(Grid& grd) const;
-	void Update(Keyboard& kbd, int& mC, int mP, float dt);
+	void Update(Keyboard& kbd);
 private:
 	Location loc;
 	Color c = Colors::Magenta;
+	static constexpr int MovePeriod = 10;
+	int MoveCounter = 0;
 };

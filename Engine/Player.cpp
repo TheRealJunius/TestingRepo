@@ -37,7 +37,7 @@ void Player::Draw(Grid & grd) const
 	grd.DrawCell(loc, c);
 }
 
-void Player::Update(Keyboard& kbd, int& mC, int mP, float dt)
+void Player::Update(Keyboard& kbd)
 {
 	Location delta_loc = { 0,0 };
 
@@ -58,11 +58,11 @@ void Player::Update(Keyboard& kbd, int& mC, int mP, float dt)
 		delta_loc = { 0,-1 };
 	}
 
-	++mC;
+	++MoveCounter;
 
-	if (mC >= mP)
+	if (MoveCounter >= MovePeriod)
 	{
-		mC = 0;
+		MoveCounter = 0;
 		MoveBy(delta_loc);
 		ClampToScreen();
 	}

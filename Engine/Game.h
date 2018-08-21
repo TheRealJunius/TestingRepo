@@ -47,7 +47,5 @@ private:
 	/*  User Variables              */
 	Grid grd;
 	Player player;
-	static constexpr int MovePeriod = 10;
-	int MoveCounter = 0;
 	/********************************/
 };

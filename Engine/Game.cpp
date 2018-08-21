@@ -40,7 +40,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	player.Update(wnd.kbd, MoveCounter, MovePeriod, 1);
+	player.Update(wnd.kbd);
 }
 
 void Game::ComposeFrame()
