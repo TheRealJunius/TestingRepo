@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Grid.h"
 #include "Player.h"
+#include "World.h"
 
 class Game
 {
@@ -45,6 +46,7 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Grid grd;
-	Player player;
+	World wrd;
+	Player plyr;
 	/********************************/
 };
