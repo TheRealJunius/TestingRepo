@@ -21,15 +21,15 @@ void Player::ClampToScreen()
 	}
 }
 
-Player::Player(const Location in_loc)
+Player::Player(const Vec2 in_loc)
 {
 	loc = in_loc;
 }
 
-void Player::MoveBy(const Location delta_loc)
+void Player::MoveBy(const Vec2 delta_loc)
 {
-	//assert(abs(delta_loc.x) + abs(delta_loc.y) == 1);
-	loc.Add(delta_loc);
+	assert(abs(delta_loc.x) + abs(delta_loc.y) > 1);
+	loc += delta_loc;
 }
 
 void Player::Draw(Grid & grd) const
@@ -39,7 +39,7 @@ void Player::Draw(Grid & grd) const
 
 void Player::Update(Keyboard& kbd)
 {
-	Location delta_loc = { 0,0 };
+	Vec2 delta_loc = { 0,0 };
 
 	if (kbd.KeyIsPressed(VK_RIGHT))
 	{

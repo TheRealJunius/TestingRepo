@@ -6,7 +6,7 @@ Grid::Grid(Graphics & gfx)
 {
 }
 
-void Grid::DrawCell(Location loc, Color c)
+void Grid::DrawCell(Vec2 loc, Color c)
 {
 	for (int X = loc.x * CellDimensions + Spacing; X < loc.x * CellDimensions + CellDimensions; X++)
 	{

@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	grd(gfx),
-	player(Location{Grid::Rows /2 - 1, Grid::Columns - 1})
+	player(Vec2{Grid::Rows /2 - 1, Grid::Columns - 1})
 {
 }
 

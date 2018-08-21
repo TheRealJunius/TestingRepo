@@ -24,7 +24,6 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Grid.h"
-#include "Location.h"
 #include "Player.h"
 
 class Game

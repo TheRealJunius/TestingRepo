@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Location.h"
+#include "Vec2.h"
 #include "Colors.h"
 
 class Grid
@@ -15,5 +15,5 @@ public:
 	static constexpr int Spacing = 2; //0
 
 	Grid(Graphics& gfx);
-	void DrawCell(Location loc, Color c);
+	void DrawCell(Vec2 loc, Color c);
 };
