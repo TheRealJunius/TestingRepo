@@ -9,10 +9,10 @@ class Grid
 private:
 	Graphics& gfx;
 public:
-	static constexpr int Rows = 16; //32
-	static constexpr int Columns = 12; //16
-	static constexpr int CellDimensions = 50; //32
-	static constexpr int Spacing = 0; //6
+	static constexpr int Rows = 32; //16
+	static constexpr int Columns = 16; //12
+	static constexpr int CellDimensions = 32; //50
+	static constexpr int Spacing = 2; //0
 
 	Grid(Graphics& gfx);
 	void DrawCell(Location loc, Color c);

@@ -17,6 +17,6 @@ public:
 private:
 	Location loc;
 	Color c = Colors::Magenta;
-	static constexpr int MovePeriod = 10;
+	static constexpr int MovePeriod = 5;
 	int MoveCounter = 0;
 };
