@@ -46,7 +46,7 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Grid grd;
-	World wrd;
-	Player plyr;
+	World world;
+	Player player;
 	/********************************/
 };

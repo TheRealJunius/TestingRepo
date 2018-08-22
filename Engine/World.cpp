@@ -34,7 +34,7 @@ World::World()
 {
 	for (int i = 0; i < Grid::Rows; i++)
 	{
-		World::Block block = World::Block(Vec2(int(1.0f), int(1.0f)), World::Block::BlockType::Dirt);
+		World::Block block = World::Block(Vec2(float(i), 0.0f), World::Block::BlockType::Dirt);
 		blocks.push_back(block);
 	}
 }

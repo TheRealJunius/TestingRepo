@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	grd(gfx),
-	plyr(Vec2{Grid::Rows /2 - 1, Grid::Columns - 1})
+	player(Vec2{Grid::Rows /2 - 1, Grid::Columns - 1})
 {
 }
 
@@ -44,19 +44,22 @@ void Game::UpdateModel()
 	//World
 
 	//Player
-	plyr.Update(wnd.kbd);
+	player.Update(wnd.kbd);
 	//Player
 }
 
 void Game::ComposeFrame()
 {
 	//World
-	wrd.DrawBackground(grd);
+	world.DrawBackground(grd);
+
+	for (int i = 0; i < Grid::Rows; i++)
+	{
+		world.blocks.at(i).Draw(grd);
+	}
 	//World
 
-
-	wrd.blocks.at(0).Draw(grd);
 	//Player
-	plyr.Draw(grd);
+	player.Draw(grd);
 	//Player
 }
