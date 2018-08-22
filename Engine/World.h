@@ -25,9 +25,8 @@ public:
 		BlockType type;
 		Color c;
 	};
-
 public:
-	void DrawBackground(Grid& grd);
-public:
+	World();
 	std::vector<Block> blocks;
+	void DrawBackground(Grid& grd);
 };

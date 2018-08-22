@@ -54,6 +54,8 @@ void Game::ComposeFrame()
 	wrd.DrawBackground(grd);
 	//World
 
+
+	wrd.blocks.at(0).Draw(grd);
 	//Player
 	plyr.Draw(grd);
 	//Player
