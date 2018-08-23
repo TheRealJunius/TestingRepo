@@ -22,44 +22,8 @@ void Player::ClampToScreen()
 
 void Player::PlayerWithBlocksCollision(Vec2& dl, std::vector<World::Block> b)
 {
-	//Checking right if there is a block
-	if (dl.x == 1 && dl.y == 0)
-	{
-		for (int i = 0; i < b.size(); i++)
-		{
-			if (b.at(i).GetLocation() == loc + dl)
-			{
-				dl = { 0,0 };
-			}
-		}
-	}
-
-	//Checking left if there is a block
-	if (dl.x == -1 && dl.y == 0)
-	{
-		for (int i = 0; i < b.size(); i++)
-		{
-			if (b.at(i).GetLocation() == loc + dl)
-			{
-				dl = { 0,0 };
-			}
-		}
-	}
-
-	//Checking down if there is a block
-	if (dl.x == 0 && dl.y == 1)
-	{
-		for (int i = 0; i < b.size(); i++)
-		{
-			if (b.at(i).GetLocation() == loc + dl)
-			{
-				dl = { 0,0 };
-			}
-		}
-	}
-
-	//Checking up if there is a block
-	if (dl.x == 0 && dl.y == -1)
+	//Checking if there is a block on the player's right/left/down/up/diagonals and respond by changing the delta_loc
+	if ((dl.x != 0 && dl.y == 0) || (dl.x == 0 && dl.y != 0) || (dl.x != 0 && dl.y != 0))
 	{
 		for (int i = 0; i < b.size(); i++)
 		{
@@ -92,19 +56,19 @@ void Player::Update(Keyboard& kbd, std::vector<World::Block> b)
 
 	if (kbd.KeyIsPressed(VK_RIGHT))
 	{
-		delta_loc = { 1,0 };
+		delta_loc += { 1,0 };
 	}
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
-		delta_loc = { -1,0 };
+		delta_loc += { -1,0 };
 	}
 	if (kbd.KeyIsPressed(VK_DOWN))
 	{
-		delta_loc = { 0,1 }; 
+		delta_loc += { 0,1 }; 
 	}
 	if (kbd.KeyIsPressed(VK_UP))
 	{
-		delta_loc = { 0,-1 };
+		delta_loc += { 0,-1 };
 	}
 
 	++MoveCounter;
