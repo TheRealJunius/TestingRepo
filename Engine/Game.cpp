@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	grd(gfx),
-	player(Vec2{Grid::Width /2 - 1, Grid::Height - 1})
+	player(Vec2{Grid::Width /2 - 1, Grid::Height - 3})
 {
 }
 
@@ -44,7 +44,7 @@ void Game::UpdateModel()
 	//World
 
 	//Player
-	player.Update(wnd.kbd);
+	player.Update(wnd.kbd, world.blocks);
 	//Player
 }
 

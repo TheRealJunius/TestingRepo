@@ -20,6 +20,57 @@ void Player::ClampToScreen()
 	}
 }
 
+void Player::PlayerWithBlocksCollision(Vec2& dl, std::vector<World::Block> b)
+{
+	//Checking right if there is a block
+	if (dl.x == 1 && dl.y == 0)
+	{
+		for (int i = 0; i < b.size(); i++)
+		{
+			if (b.at(i).GetLocation() == loc + dl)
+			{
+				dl = { 0,0 };
+			}
+		}
+	}
+
+	//Checking left if there is a block
+	if (dl.x == -1 && dl.y == 0)
+	{
+		for (int i = 0; i < b.size(); i++)
+		{
+			if (b.at(i).GetLocation() == loc + dl)
+			{
+				dl = { 0,0 };
+			}
+		}
+	}
+
+	//Checking down if there is a block
+	if (dl.x == 0 && dl.y == 1)
+	{
+		for (int i = 0; i < b.size(); i++)
+		{
+			if (b.at(i).GetLocation() == loc + dl)
+			{
+				dl = { 0,0 };
+			}
+		}
+	}
+
+	//Checking up if there is a block
+	if (dl.x == 0 && dl.y == -1)
+	{
+		for (int i = 0; i < b.size(); i++)
+		{
+			if (b.at(i).GetLocation() == loc + dl)
+			{
+				dl = { 0,0 };
+			}
+		}
+	}
+}
+
 Player::Player(const Vec2 in_loc)
 {
 	loc = in_loc;
@@ -35,7 +86,7 @@ void Player::Draw(Grid & grd) const
 	grd.DrawCell(loc, c);
 }
 
-void Player::Update(Keyboard& kbd)
+void Player::Update(Keyboard& kbd, std::vector<World::Block> b)
 {
 	Vec2 delta_loc = { 0,0 };
 
@@ -61,6 +112,7 @@ void Player::Update(Keyboard& kbd)
 	if (MoveCounter >= MovePeriod)
 	{
 		MoveCounter = 0;
+		PlayerWithBlocksCollision(delta_loc, b);
 		MoveBy(delta_loc);
 		ClampToScreen();
 	}

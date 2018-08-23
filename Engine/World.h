@@ -22,6 +22,7 @@ public:
 		//Functions
 		Block(Vec2 in_loc, BlockType in_type);
 		void Draw(Grid& grd);
+		Vec2 GetLocation();
 		//Functions
 	private:
 		//Data

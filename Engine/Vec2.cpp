@@ -15,6 +15,17 @@ Vec2 & Vec2::operator=(const Vec2 & rhs)
 
 	return *this;
 }
+bool Vec2::operator==(const Vec2 & rhs)
+{
+	if (x == rhs.x && y == rhs.y)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 Vec2 Vec2::operator+(const Vec2& rhs) const
 {
 	return Vec2(x + rhs.x, y + rhs.y);

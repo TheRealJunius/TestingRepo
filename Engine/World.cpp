@@ -30,6 +30,11 @@ void World::Block::Draw(Grid & grd)
 	grd.DrawCell(loc, c);
 }
 
+Vec2 World::Block::GetLocation()
+{
+	return loc;
+}
+
 World::World()
 {
 	for (int j = Grid::Height - 1; j > Grid::Height - 3; j--)
