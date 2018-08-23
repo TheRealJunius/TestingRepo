@@ -1,2 +1,0 @@
-Width = 1030; 32 Cells
-Height = 518; 16 Cells

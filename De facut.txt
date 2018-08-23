@@ -1,0 +1,8 @@
+1. Make so that the player can move diagonally, i did this before but i removed it, trust me, this will be a good idea                |                                  \ | /
+2. Update the Player-block collision because now it can move diagonally so it won't work unless u make it detect blocks not just in ----- but it has to detect like this -----
+																      |					 / | \
+PANA AICI... dupa ce termini alea usoare fa astea:
+
+3. Watch Chili's tut about 1D arrays and how chili uses it to optimize the snake game collisions, cuz this will be MUCH FASTER, and easier to use in the player-blockcollision( have to change the player-blockcollision again so that u have to use the 1D array )
+4. Jump Mechanics    (Jump mechanics poate le faci dupa random generation of the map sau inainte... depinde daca ti se pare mai usor RGOTM (random generation of the map))
+5. Random generation of the map, maybe expand the map if is the case
