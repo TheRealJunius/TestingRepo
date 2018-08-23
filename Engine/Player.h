@@ -19,6 +19,6 @@ public:
 private:
 	Vec2 loc;
 	Color c = Colors::Magenta;
-	static constexpr int MovePeriod = 3;
+	static constexpr int MovePeriod = 5;
 	int MoveCounter = 0;
 };
