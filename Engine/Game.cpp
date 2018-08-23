@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	grd(gfx),
-	player(Vec2{Grid::Rows /2 - 1, Grid::Columns - 1})
+	player(Vec2{Grid::Width /2 - 1, Grid::Height - 1})
 {
 }
 
@@ -53,7 +53,7 @@ void Game::ComposeFrame()
 	//World
 	world.DrawBackground(grd);
 
-	for (int i = 0; i < Grid::Rows; i++)
+	for (int i = 0; i < world.blocks.size(); i++)
 	{
 		world.blocks.at(i).Draw(grd);
 	}

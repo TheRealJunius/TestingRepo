@@ -32,18 +32,21 @@ void World::Block::Draw(Grid & grd)
 
 World::World()
 {
-	for (int i = 0; i < Grid::Rows; i++)
+	for (int j = Grid::Height - 1; j > Grid::Height - 3; j--)
 	{
-		World::Block block = World::Block(Vec2(float(i), 0.0f), World::Block::BlockType::Dirt);
-		blocks.push_back(block);
+		for (int i = 0; i < Grid::Width; i++)
+		{
+			World::Block block = World::Block(Vec2(float(i), float(j)), World::Block::BlockType::Dirt);
+			blocks.push_back(block);
+		}
 	}
 }
 
 void World::DrawBackground(Grid & grd)
 {
-	for (int i = 0; i < Grid::Rows; i++)
+	for (int i = 0; i < Grid::Width; i++)
 	{
-		for (int j = 0; j < Grid::Columns; j++)
+		for (int j = 0; j < Grid::Height; j++)
 		{
 			Color skyColor = { 204, 255, 238 };
 			grd.DrawCell({float(i), float(j)}, skyColor);

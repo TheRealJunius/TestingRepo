@@ -1,19 +1,18 @@
 #include "Player.h"
-#include <assert.h>
 
 void Player::ClampToScreen()
 {
-	if (loc.x >= Grid::Rows)
+	if (loc.x >= Grid::Width)
 	{
-		loc.x = Grid::Rows - 1;
+		loc.x = Grid::Width - 1;
 	}
 	if (loc.x < 0)
 	{
 		loc.x = 0;
 	}
-	if (loc.y >= Grid::Columns)
+	if (loc.y >= Grid::Height)
 	{
-		loc.y = Grid::Columns - 1;
+		loc.y = Grid::Height - 1;
 	}
 	if (loc.y < 0)
 	{
@@ -28,7 +27,6 @@ Player::Player(const Vec2 in_loc)
 
 void Player::MoveBy(const Vec2 delta_loc)
 {
-	assert(abs(delta_loc.x) + abs(delta_loc.y) > 1);
 	loc += delta_loc;
 }
 
@@ -51,7 +49,7 @@ void Player::Update(Keyboard& kbd)
 	}
 	if (kbd.KeyIsPressed(VK_DOWN))
 	{
-		delta_loc = { 0,1 };
+		delta_loc = { 0,1 }; 
 	}
 	if (kbd.KeyIsPressed(VK_UP))
 	{
