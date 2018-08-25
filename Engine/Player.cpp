@@ -50,34 +50,50 @@ void Player::Draw(Grid & grd) const
 	grd.DrawCell(loc, c);
 }
 
-void Player::Update(Keyboard& kbd, std::vector<World::Block> b)
+void Player::Update(float dt, Keyboard& kbd, std::vector<World::Block> b)
 {
 	Vec2 delta_loc = { 0,0 };
 
 	if (kbd.KeyIsPressed(VK_RIGHT))
 	{
-		delta_loc += { 1,0 };
+		delta_loc += { 1, 0 };
 	}
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
-		delta_loc += { -1,0 };
-	}
-	if (kbd.KeyIsPressed(VK_DOWN))
-	{
-		delta_loc += { 0,1 }; 
+		delta_loc += { -1, 0 };
 	}
 	if (kbd.KeyIsPressed(VK_UP))
 	{
-		delta_loc += { 0,-1 };
+		if (jumping)
+		{
+			if (jumpForce != 0)
+			{
+				delta_loc += {0, -1};
+				jumpForce--;
+			}
+			else
+			{
+				delta_loc += {0, 1};
+			}
+		}
+		else
+		{
+			Vec2 underBlock = { 0, 1 };
+			for (int i = 0; i < b.size(); i++)
+			{
+				if (b.at(i).GetLocation() == loc + underBlock)
+				{
+					jumping = true;
+					break;
+				}
+			}
+		}
 	}
-
-	++MoveCounter;
-
-	if (MoveCounter >= MovePeriod)
+	else
 	{
-		MoveCounter = 0;
-		PlayerWithBlocksCollision(delta_loc, b);
-		MoveBy(delta_loc);
-		ClampToScreen();
 	}
+
+	PlayerWithBlocksCollision(delta_loc, b);
+	MoveBy(delta_loc);
+	ClampToScreen();
 }
