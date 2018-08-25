@@ -40,11 +40,15 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	//Delta Time
+	const float DT = ft.Mark();
+	//Delta Time
+
 	//World
 	//World
 
 	//Player
-	player.Update(wnd.kbd, world.blocks);
+	player.Update(DT, wnd.kbd, world.blocks);
 	//Player
 }
 
