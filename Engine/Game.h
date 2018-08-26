@@ -48,7 +48,5 @@ private:
 	Grid grd;
 	World world;
 	Player player;
-	static constexpr int MovePeriod = 10;
-	int MoveCounter = 0;
 	/********************************/
 };
