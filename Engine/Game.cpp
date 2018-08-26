@@ -53,7 +53,7 @@ void Game::ComposeFrame()
 	//World
 	world.DrawBackground(grd);
 
-	for (int i = 0; i < world.blocks.size(); i++)
+	for (unsigned _int16 i = 0; i < world.blocks.size(); i++)
 	{
 		world.blocks.at(i).Draw(grd);
 	}
