@@ -50,7 +50,7 @@ void Player::Draw(Grid & grd) const
 	grd.DrawCell(loc, c);
 }
 
-void Player::Update(float dt, Keyboard& kbd, std::vector<World::Block> b)
+void Player::Update(Keyboard& kbd, std::vector<World::Block> b)
 {
 	Vec2 delta_loc = { 0,0 };
 
@@ -107,7 +107,7 @@ void Player::Update(float dt, Keyboard& kbd, std::vector<World::Block> b)
 			}
 		}
 	}
-	else if(jumping) //This was added because even if the player doesn't hold of the up key anymore
+	else if (jumping) //This was added because even if the player doesn't hold of the up key anymore
 					 //The player would still fall, of course
 					 //By the way, this is just copied from above of the //Falling sector
 	{
@@ -115,7 +115,7 @@ void Player::Update(float dt, Keyboard& kbd, std::vector<World::Block> b)
 
 		//Checking if the player has a block under it so it can stop falling
 		Vec2 underBlock = { 0, 1 };
-		for (int i = 0; i < b.size(); i++) 
+		for (int i = 0; i < b.size(); i++)
 		{
 			if (b.at(i).GetLocation() == loc + underBlock)
 			{
@@ -128,7 +128,12 @@ void Player::Update(float dt, Keyboard& kbd, std::vector<World::Block> b)
 	}
 	//Jump mechanism
 
-	PlayerWithBlocksCollision(delta_loc, b);
-	MoveBy(delta_loc);
-	ClampToScreen();
+	if (moveCounter++ == movePeriod)
+	{
+		moveCounter = 0; //Reset moveCounter
+
+		PlayerWithBlocksCollision(delta_loc, b);
+		MoveBy(delta_loc);
+		ClampToScreen();
+	}
 }

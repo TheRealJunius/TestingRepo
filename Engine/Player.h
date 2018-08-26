@@ -15,10 +15,12 @@ public:
 	Player(const Vec2 in_loc);
 	void MoveBy(const Vec2 delta_loc);
 	void Draw(Grid& grd) const;
-	void Update(float dt, Keyboard& kbd, std::vector<World::Block> b);
+	void Update(Keyboard& kbd, std::vector<World::Block> b);
 private:
 	Vec2 loc;
 	Color c = Colors::Magenta;
+	static constexpr int movePeriod = 10;
+	int moveCounter = 0;
 	bool jumping = false;
 	int jumpForce = 4; //Number of blocks the player can jump
 };
