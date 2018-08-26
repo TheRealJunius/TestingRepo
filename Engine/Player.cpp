@@ -65,72 +65,72 @@ void Player::Update(Keyboard& kbd, std::vector<World::Block> b)
 	}
 	//Horizontal movement
 
-	//Jump mechanism
-	if (kbd.KeyIsPressed(VK_UP))
+	if (moveCounter++ == movePeriod)
 	{
-		if (jumping)
-		{
-			if (jumpForce != 0) //Jumping
-			{
-				delta_loc += {0, -1};
-				jumpForce--;
-			}
-			else //Falling
-			{
-				delta_loc += {0, 1};
+		moveCounter = 0; //Reset moveCounter
 
-				//Checking if the player has a block under it so it can stop falling
+		//Jump mechanism
+		if (kbd.KeyIsPressed(VK_UP))
+		{
+			if (jumping)
+			{
+				if (jumpForce != 0) //Jumping
+				{
+					delta_loc += {0, -1};
+					jumpForce--;
+				}
+				else //Falling
+				{
+					delta_loc += {0, 1};
+
+					//Checking if the player has a block under it so it can stop falling
+					Vec2 underBlock = { 0, 1 };
+					for (int i = 0; i < b.size(); i++)
+					{
+						if (b.at(i).GetLocation() == loc + underBlock)
+						{
+							jumping = false;
+							jumpForce = 4; //Reseting the jumpForce
+							delta_loc += {0, -1}; //This will make the delta loc 0,0
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				//Checking if the player has a block under it so it can jump
 				Vec2 underBlock = { 0, 1 };
 				for (int i = 0; i < b.size(); i++)
 				{
 					if (b.at(i).GetLocation() == loc + underBlock)
 					{
-						jumping = false;
-						jumpForce = 4; //Reseting the jumpForce
-						delta_loc += {0, -1}; //This will make the delta loc 0,0
+						jumping = true;
 						break;
 					}
 				}
 			}
 		}
-		else
+		else if (jumping) //This was added because even if the player doesn't hold of the up key anymore
+						 //The player would still fall, of course
+						 //By the way, this is just copied from above of the //Falling sector
 		{
-			//Checking if the player has a block under it so it can jump
+			delta_loc += {0, 1};
+
+			//Checking if the player has a block under it so it can stop falling
 			Vec2 underBlock = { 0, 1 };
 			for (int i = 0; i < b.size(); i++)
 			{
 				if (b.at(i).GetLocation() == loc + underBlock)
 				{
-					jumping = true;
+					jumping = false;
+					jumpForce = 4; //Reseting the jumpForce
+					delta_loc += {0, -1}; //This will make the delta loc 0,0
 					break;
 				}
 			}
 		}
-	}
-	else if (jumping) //This was added because even if the player doesn't hold of the up key anymore
-					 //The player would still fall, of course
-					 //By the way, this is just copied from above of the //Falling sector
-	{
-		delta_loc += {0, 1};
-
-		//Checking if the player has a block under it so it can stop falling
-		Vec2 underBlock = { 0, 1 };
-		for (int i = 0; i < b.size(); i++)
-		{
-			if (b.at(i).GetLocation() == loc + underBlock)
-			{
-				jumping = false;
-				jumpForce = 4; //Reseting the jumpForce
-				delta_loc += {0, -1}; //This will make the delta loc 0,0
-				break;
-			}
-		}
-	}
-	//Jump mechanism
-
-	if (moveCounter++ == movePeriod)
-	{
-		moveCounter = 0; //Reset moveCounter
+		//Jump mechanism
 
 		PlayerWithBlocksCollision(delta_loc, b);
 		MoveBy(delta_loc);
