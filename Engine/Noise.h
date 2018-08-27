@@ -11,8 +11,8 @@ public:
 	{
 		float total = 0;
 
-		int frequency = freq;
-		int amplitude = ampl;
+		int frequency = int(freq);
+		int amplitude = int(ampl);
 
 		total += InterpolatedNoise(x * float(frequency)) * float(amplitude);
 

@@ -4,6 +4,7 @@
 #include "Colors.h"
 #include "Grid.h"
 #include <vector>
+#include "Noise.h"
 
 class World
 {

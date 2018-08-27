@@ -37,14 +37,29 @@ Vec2 World::Block::GetLocation()
 
 World::World()
 {
-	for (int j = Grid::Height - 1; j > Grid::Height - 3; j--)
+	//Surface generation
+	std::mt19937 rng(std::random_device{}());
+	std::uniform_real_distribution<float> seeding(0, 100000.0f); //You can change 100000 with any number you want
+																 //But if it's a small number there are big chances that there
+																 //Might be similarities with previous or next maps
+																 //So with a big number, this chance gets smaller
+
+	float seed = seeding(rng); //Taking a random seed/xoffset in time;
+
+	for (int i = 0; i < Grid::Width; i++, seed += 0.2000000f) //If you change 0.2f with bigger numbers, it will get suddenly random
 	{
-		for (int i = 0; i < Grid::Width; i++)
-		{
-			World::Block block = World::Block(Vec2(float(i), float(j)), World::Block::BlockType::Dirt);
-			blocks.push_back(block);
-		}
+		float j = Noise::PerlinNoise_1D(seed, 3.5f, 3); //Taking a random noise value based on the seed
+														//With a frequency of 3.5f, that's what I thought would be the best one
+														//And with a amplitude of 3, you can change the freq and the ampl if u want
+
+		j += float(Grid::Height / 2 - 1);				//The perlin values are between 0 and double the amplitude
+														//So I just translate it to the middle of the y plane
+
+		Block terrainSurface = Block(Vec2(float(i), j), Block::BlockType::Dirt);
+
+		blocks.push_back(terrainSurface);
 	}
+	//Surface generation
 }
 
 void World::DrawBackground(Grid & grd)
