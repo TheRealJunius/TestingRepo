@@ -55,11 +55,39 @@ World::World()
 		j += float(Grid::Height / 2 - 1);				//The perlin values are between 0 and double the amplitude
 														//So I just translate it to the middle of the y plane
 
-		Block terrainSurface = Block(Vec2(float(i), j), Block::BlockType::Dirt);
+		Block terrainSurface = Block(Vec2(float(i), float(int(j))), Block::BlockType::Dirt);
 
 		blocks.push_back(terrainSurface);
 	}
 	//Surface generation
+
+	//Underground filling
+	for (int i = 0; i < Grid::Width; i++)
+	{
+		int surfaceBlock = 0;
+
+		//Finding the surfaceBlock's y location
+		for (int testForBlock = 0; testForBlock != blocks.at(i).GetLocation().y + 1; testForBlock++)
+		{
+			surfaceBlock = testForBlock;
+		}
+
+		//Adding the underground blocks
+		for (int j = surfaceBlock; j < Grid::Height; j++) 
+		{
+			if (j <= surfaceBlock + 1)
+			{
+				Block underGroundBlock = Block(Vec2(float(i), float(j)), World::Block::BlockType::Dirt);
+				blocks.push_back(underGroundBlock);
+			}
+			else
+			{
+				Block underGroundBlock = Block(Vec2(float(i), float(j)), World::Block::BlockType::Stone);
+				blocks.push_back(underGroundBlock);
+			}
+		}
+	}
+	//Underground filling
 }
 
 void World::DrawBackground(Grid & grd)
