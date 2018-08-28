@@ -1,4 +1,5 @@
 #include "World.h"
+#include <assert.h>
 
 World::Block::Block(Vec2 in_loc, BlockType in_type)
 	:
@@ -7,6 +8,11 @@ World::Block::Block(Vec2 in_loc, BlockType in_type)
 {
 	switch (type)
 	{
+	case Block::BlockType::Grass:
+	{
+		c = { 124, 181, 0 };
+		break;
+	}
 	case Block::BlockType::Dirt:
 	{
 		c = { 153, 102, 51 };
@@ -55,7 +61,7 @@ World::World()
 		j += float(Grid::Height / 2 - 1);				//The perlin values are between 0 and double the amplitude
 														//So I just translate it to the middle of the y plane
 
-		Block terrainSurface = Block(Vec2(float(i), float(int(j))), Block::BlockType::Dirt);
+		Block terrainSurface = Block(Vec2(float(i), float(int(j))), Block::BlockType::Grass);
 
 		blocks.push_back(terrainSurface);
 	}
@@ -67,7 +73,7 @@ World::World()
 		int surfaceBlock = 0;
 
 		//Finding the surfaceBlock's y location
-		for (int testForBlock = 0; testForBlock != blocks.at(i).GetLocation().y + 1; testForBlock++)
+		for (int testForBlock = 0; testForBlock < blocks.at(i).GetLocation().y + 2; testForBlock++)
 		{
 			surfaceBlock = testForBlock;
 		}
@@ -75,7 +81,7 @@ World::World()
 		//Adding the underground blocks
 		for (int j = surfaceBlock; j < Grid::Height; j++) 
 		{
-			if (j <= surfaceBlock + 1)
+			if (j <= surfaceBlock + 2)
 			{
 				Block underGroundBlock = Block(Vec2(float(i), float(j)), World::Block::BlockType::Dirt);
 				blocks.push_back(underGroundBlock);
@@ -88,6 +94,21 @@ World::World()
 		}
 	}
 	//Underground filling
+
+	//Checking for errors
+	for (int i = 0; i < blocks.size(); i++)
+	{
+		for (int I = 0; I < blocks.size(); I++)
+		{
+			if (i != I)
+			{
+				Vec2 block1Loc = blocks.at(i).GetLocation();
+				Vec2 block2Loc = blocks.at(I).GetLocation();
+				assert(!(block1Loc == block2Loc));
+			}
+		}
+	}
+	//Checking for errors
 }
 
 void World::DrawBackground(Grid & grd)

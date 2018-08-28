@@ -5,6 +5,7 @@
 #include "Grid.h"
 #include <vector>
 #include "Noise.h"
+#include <random>
 
 class World
 {
@@ -15,6 +16,7 @@ public:
 	public:
 		enum class BlockType
 		{
+			Grass,
 			Dirt,
 			Stone,
 			Water
