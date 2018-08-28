@@ -1,4 +1,3 @@
 PANA AICI... dupa ce termini alea usoare fa astea:
 
-3. Watch Chili's tut about 1D arrays and how chili uses it to optimize the snake game collisions, cuz this will be MUCH FASTER, and easier to use in the player-blockcollision( have to change the player-blockcollision again so that u have to use the 1D array )
-5. Random generation of the map, maybe expand the map if is the case
+4. New Jump Mechanism pt ca da....  ;-;

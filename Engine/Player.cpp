@@ -81,6 +81,8 @@ void Player::Update(Keyboard& kbd, std::vector<World::Block> b)
 				}
 				else //Falling
 				{
+					jumping = false;
+
 					delta_loc += {0, 1};
 
 					//Checking if the player has a block under it so it can stop falling
@@ -89,7 +91,6 @@ void Player::Update(Keyboard& kbd, std::vector<World::Block> b)
 					{
 						if (b.at(i).GetLocation() == loc + underBlock)
 						{
-							jumping = false;
 							jumpForce = 4; //Reseting the jumpForce
 							delta_loc += {0, -1}; //This will make the delta loc 0,0
 							break;
@@ -111,7 +112,20 @@ void Player::Update(Keyboard& kbd, std::vector<World::Block> b)
 				}
 			}
 		}
-		else if (jumping) //This was added because even if the player doesn't hold of the up key anymore
+
+		if (jumping)
+		{
+			if (jumpForce != 0) //Jumping
+			{
+				delta_loc += {0, -1};
+				jumpForce--;
+			}
+			else //Falling
+			{
+				jumping = false;
+			}
+		}
+		else //This was added because even if the player doesn't hold of the up key anymore
 						 //The player would still fall, of course
 						 //By the way, this is just copied from above of the //Falling sector
 		{
@@ -123,7 +137,6 @@ void Player::Update(Keyboard& kbd, std::vector<World::Block> b)
 			{
 				if (b.at(i).GetLocation() == loc + underBlock)
 				{
-					jumping = false;
 					jumpForce = 4; //Reseting the jumpForce
 					delta_loc += {0, -1}; //This will make the delta loc 0,0
 					break;
