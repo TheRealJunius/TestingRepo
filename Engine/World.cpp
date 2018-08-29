@@ -43,13 +43,14 @@ Vec2 World::Block::GetLocation()
 
 World::World()
 {
-	//Surface generation
 	std::mt19937 rng(std::random_device{}());
 	std::uniform_real_distribution<float> seeding(0, 100000.0f); //You can change 100000 with any number you want
 																 //But if it's a small number there are big chances that there
 																 //Might be similarities with previous or next maps
 																 //So with a big number, this chance gets smaller
+	std::uniform_int_distribution<int> dirtLayer(2, 3);
 
+	//Surface generation
 	float seed = seeding(rng); //Taking a random seed/xoffset in time;
 
 	for (int i = 0; i < Grid::Width; i++, seed += 0.2000000f) //If you change 0.2f with bigger numbers, it will get suddenly random
@@ -59,7 +60,7 @@ World::World()
 														//And with a amplitude of 3, you can change the freq and the ampl if u want
 
 		j += float(Grid::Height / 2 - 1);				//The perlin values are between 0 and double the amplitude
-														//So I just translate it to the middle of the y plane
+															//So I just translate it to the middle of the y plane
 
 		Block terrainSurface = Block(Vec2(float(i), float(int(j))), Block::BlockType::Grass);
 
@@ -78,10 +79,12 @@ World::World()
 			surfaceBlock = testForBlock;
 		}
 
+		const int dLayer = dirtLayer(rng);
+
 		//Adding the underground blocks
-		for (int j = surfaceBlock; j < Grid::Height; j++) 
+		for (int j = surfaceBlock; j < Grid::Height; j++)
 		{
-			if (j <= surfaceBlock + 2)
+			if (j <= surfaceBlock + dLayer)
 			{
 				Block underGroundBlock = Block(Vec2(float(i), float(j)), World::Block::BlockType::Dirt);
 				blocks.push_back(underGroundBlock);
