@@ -48,14 +48,14 @@ World::World()
 																 //But if it's a small number there are big chances that there
 																 //Might be similarities with previous or next maps
 																 //So with a big number, this chance gets smaller
-	std::uniform_int_distribution<int> dirtLayer(2, 3);
+	std::uniform_int_distribution<int> dirtLayer(2, 4);
 
 	//Surface generation
 	float seed = seeding(rng); //Taking a random seed/xoffset in time;
 
-	for (int i = 0; i < Grid::Width; i++, seed += 0.2000000f) //If you change 0.2f with bigger numbers, it will get suddenly random
+	for (int i = 0; i < Grid::Width; i++, seed += 0.0800000f) //If you change 0.2f with bigger numbers, it will get suddenly random
 	{
-		float j = Noise::PerlinNoise_1D(seed, 3.5f, 3); //Taking a random noise value based on the seed
+		float j = Noise::PerlinNoise_1D(seed, 2.7182818f, 6.2831853f); //Taking a random noise value based on the seed
 														//With a frequency of 3.5f, that's what I thought would be the best one
 														//And with a amplitude of 3, you can change the freq and the ampl if u want
 
