@@ -35,6 +35,63 @@ void Player::PlayerWithBlocksCollision(Vec2& dl, std::vector<World::Block> b)
 	}
 }
 
+void Player::Jump(Keyboard & kbd, Vec2 & dl, std::vector<World::Block> b)
+{
+	//Jumping Algorithm
+	if (kbd.KeyIsPressed(VK_UP))
+	{
+		if (jumping)
+		{
+			if (jumpForce != 0)
+			{
+				dl += {0, -1};
+				jumpForce--;
+			}
+			else
+			{
+				jumping = false;
+			}
+		}
+		else
+		{
+			//Check if it can jump
+			Vec2 underBlock = { 0,1 };
+			for (int i = 0; i < b.size(); i++)
+			{
+				if (b.at(i).GetLocation() == loc + underBlock)
+				{
+					jumping = true;
+					jumpForce = 4; //If you change the jumpForce then you must change this too!
+					break;
+				}
+			}
+		}
+	}
+	else if (jumping)
+	{
+		jumping = false;
+	}
+	//Jumping Algorithm
+
+	//Gravity
+	if (!jumping)
+	{
+		dl += {0, 1};
+
+		Vec2 underBlock = { 0,1 };
+		for (int i = 0; i < b.size(); i++)
+		{
+			if (b.at(i).GetLocation() == loc + underBlock)
+			{
+				dl += {0, -1}; //Reset dl;
+				jumping = false;
+				jumpForce = 0;
+			}
+		}
+	}
+	//Gravity
+}
+
 Player::Player(const Vec2 in_loc)
 {
 	loc = in_loc;

@@ -11,6 +11,7 @@ class Player
 private:
 	void ClampToScreen();
 	void PlayerWithBlocksCollision(Vec2& dl, std::vector<World::Block> b);
+	void Jump(Keyboard& kbd, Vec2& dl, std::vector<World::Block> b);
 	void MoveBy(const Vec2 delta_loc);
 public:
 	Player(const Vec2 in_loc);
