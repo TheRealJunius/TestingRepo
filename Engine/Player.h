@@ -23,5 +23,5 @@ private:
 	static constexpr int movePeriod = 5;
 	int moveCounter = 0;
 	bool jumping = false;
-	int jumpForce = 4; //Number of blocks the player can jump
+	int jumpForce = 3; //Number of blocks the player can jump
 };
