@@ -25,7 +25,22 @@ World::Block::Block(Vec2 in_loc, BlockType in_type)
 	}
 	case Block::BlockType::Water:
 	{
-		c = { 0, 204, 136 };
+		c = { 0, 153, 255 };
+		break;
+	}
+	case Block::BlockType::Coal:
+	{
+		c = { 51, 26, 0 };
+		break;
+	}
+	case Block::BlockType::Iron:
+	{
+		c = { 255, 217, 179 };
+		break;
+	}
+	case Block::BlockType::Diamond:
+	{
+		c = { 26, 255, 209 };
 		break;
 	}
 	}
@@ -39,6 +54,21 @@ void World::Block::Draw(Grid & grd)
 Vec2 World::Block::GetLocation()
 {
 	return loc;
+}
+
+World::Block::BlockType World::Block::GetType()
+{
+	return type;
+}
+
+void World::Block::SetType(BlockType _type)
+{
+	type = _type;
+}
+
+void World::Block::SetColor(Color _c)
+{
+	c = _c;
 }
 
 World::World()
@@ -96,6 +126,10 @@ World::World()
 			}
 		}
 	}
+
+	AddOres(Block::BlockType::Coal, blocks, 2.5000000f);
+	AddOres(Block::BlockType::Iron, blocks, 2.3333333f);
+	AddOres(Block::BlockType::Diamond, blocks, 0.05f);
 	//Underground filling
 
 	//Checking for errors
@@ -122,6 +156,64 @@ void World::DrawBackground(Grid & grd)
 		{
 			Color skyColor = { 204, 255, 238 };
 			grd.DrawCell({float(i), float(j)}, skyColor);
+		}
+	}
+}
+
+void World::AddOres(Block::BlockType type, std::vector<Block>& b, float chanceOfSpawningOnEachBlock)
+{
+	std::mt19937 rng(std::random_device{}());
+	std::uniform_real_distribution<float> randomNumber(0, 100000.0f);
+
+	//Create the ores
+	for (int i = 0; i < b.size(); i++)
+	{
+		if ((b.at(i).GetType() != Block::BlockType::Grass) && 
+			(b.at(i).GetType() != Block::BlockType::Dirt) &&
+			(float(fmod(randomNumber(rng), 100)) < chanceOfSpawningOnEachBlock))
+		{
+			b.at(i).SetType(type);
+
+			//Recoloring
+			switch (type)
+			{
+			case Block::BlockType::Grass:
+			{
+				b.at(i).SetColor({ 124, 181, 0 });
+				break;
+			}
+			case Block::BlockType::Dirt:
+			{
+				b.at(i).SetColor({ 153, 102, 51 });
+				break;
+			}
+			case Block::BlockType::Stone:
+			{
+				b.at(i).SetColor({ 77, 77, 77 });
+				break;
+			}
+			case Block::BlockType::Water:
+			{
+				b.at(i).SetColor({ 0, 153, 255 });
+				break;
+			}
+
+			case Block::BlockType::Coal:
+			{
+				b.at(i).SetColor({ 51, 26, 0 });
+				break;
+			}
+			case Block::BlockType::Iron:
+			{
+				b.at(i).SetColor({ 255, 217, 179 });
+				break;
+			}
+			case Block::BlockType::Diamond:
+			{
+				b.at(i).SetColor({ 26, 255, 209 });
+				break;
+			}
+			}
 		}
 	}
 }

@@ -19,13 +19,19 @@ public:
 			Grass,
 			Dirt,
 			Stone,
-			Water
+			Water,
+			Coal,
+			Iron,
+			Diamond
 		};
 	public:
 		//Functions
 		Block(Vec2 in_loc, BlockType in_type);
 		void Draw(Grid& grd);
 		Vec2 GetLocation();
+		BlockType GetType();
+		void SetType(BlockType _type);
+		void SetColor(Color _c);
 		//Functions
 	private:
 		//Data
@@ -39,6 +45,10 @@ public:
 	//Functions
 	World();
 	void DrawBackground(Grid& grd);
+	//Functions
+private:
+	//Functions
+	void AddOres(Block::BlockType type, std::vector<Block>& b, float chanceOfSpawningOnEachBlock);
 	//Functions
 public:
 	//Data
