@@ -44,18 +44,18 @@ void Game::UpdateModel()
 	//World
 
 	//Player
-	player.Update(wnd.kbd, world.blocks);
+	player.Update(wnd.kbd, grd.world.blocks);
 	//Player
 }
 
 void Game::ComposeFrame()
 {
 	//World
-	world.DrawBackground(grd);
+	grd.world.DrawBackground(grd);
 
-	for (unsigned _int16 i = 0; i < world.blocks.size(); i++)
+	for (unsigned _int16 i = 0; i < grd.world.blocks.size(); i++)
 	{
-		world.blocks.at(i).Draw(grd);
+		grd.world.blocks.at(i).Draw(grd);
 	}
 	//World
 

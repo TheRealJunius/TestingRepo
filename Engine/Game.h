@@ -23,7 +23,6 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Grid.h"
 #include "Player.h"
 #include "World.h"
 
@@ -46,7 +45,6 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Grid grd;
-	World world;
 	Player player;
 	/********************************/
 };

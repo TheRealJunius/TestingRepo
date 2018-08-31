@@ -1,77 +1,34 @@
 #include "World.h"
 #include <assert.h>
 
-World::Block::Block(Vec2 in_loc, BlockType in_type)
+Grid::Grid::World::Block::Block(Vec2 in_loc, Grid::Grid::World::Block::BlockType in_type)
 	:
 	loc(in_loc),
 	type(in_type)
 {
-	switch (type)
-	{
-	case Block::BlockType::Grass:
-	{
-		c = { 124, 181, 0 };
-		break;
-	}
-	case Block::BlockType::Dirt:
-	{
-		c = { 153, 102, 51 };
-		break;
-	}
-	case Block::BlockType::Stone:
-	{
-		c = { 77, 77, 77 };
-		break;
-	}
-	case Block::BlockType::Water:
-	{
-		c = { 0, 153, 255 };
-		break;
-	}
-	case Block::BlockType::Coal:
-	{
-		c = { 51, 26, 0 };
-		break;
-	}
-	case Block::BlockType::Iron:
-	{
-		c = { 255, 217, 179 };
-		break;
-	}
-	case Block::BlockType::Diamond:
-	{
-		c = { 26, 255, 209 };
-		break;
-	}
-	}
 }
 
-void World::Block::Draw(Grid & grd)
+void Grid::Grid::World::Block::Draw(Grid & grd)
 {
-	grd.DrawCell(loc, c);
+	grd.DrawCell(loc, type);
 }
 
-Vec2 World::Block::GetLocation()
+Vec2 Grid::Grid::World::Block::GetLocation()
 {
 	return loc;
 }
 
-World::Block::BlockType World::Block::GetType()
+Grid::World::Block::BlockType Grid::World::Block::GetType()
 {
 	return type;
 }
 
-void World::Block::SetType(BlockType _type)
+void Grid::World::Block::SetType(BlockType _type)
 {
 	type = _type;
 }
 
-void World::Block::SetColor(Color _c)
-{
-	c = _c;
-}
-
-World::World()
+Grid::World::World()
 {
 	std::mt19937 rng(std::random_device{}());
 	std::uniform_real_distribution<float> seeding(0, 100000.0f); //You can change 100000 with any number you want
@@ -116,12 +73,12 @@ World::World()
 		{
 			if (j <= surfaceBlock + dLayer)
 			{
-				Block underGroundBlock = Block(Vec2(float(i), float(j)), World::Block::BlockType::Dirt);
+				Block underGroundBlock = Block(Vec2(float(i), float(j)), Grid::World::Block::BlockType::Dirt);
 				blocks.push_back(underGroundBlock);
 			}
 			else
 			{
-				Block underGroundBlock = Block(Vec2(float(i), float(j)), World::Block::BlockType::Stone);
+				Block underGroundBlock = Block(Vec2(float(i), float(j)), Grid::World::Block::BlockType::Stone);
 				blocks.push_back(underGroundBlock);
 			}
 		}
@@ -148,7 +105,7 @@ World::World()
 	//Checking for errors
 }
 
-void World::DrawBackground(Grid & grd)
+void Grid::World::DrawBackground(Grid & grd)
 {
 	for (int i = 0; i < Grid::Width; i++)
 	{
@@ -160,7 +117,7 @@ void World::DrawBackground(Grid & grd)
 	}
 }
 
-void World::AddOres(Block::BlockType type, std::vector<Block>& b, float chanceOfSpawningOnEachBlock)
+void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, float chanceOfSpawningOnEachBlock)
 {
 	std::mt19937 rng(std::random_device{}());
 	std::uniform_real_distribution<float> randomNumber(0, 100000.0f);
@@ -173,47 +130,75 @@ void World::AddOres(Block::BlockType type, std::vector<Block>& b, float chanceOf
 			(float(fmod(randomNumber(rng), 100)) < chanceOfSpawningOnEachBlock))
 		{
 			b.at(i).SetType(type);
+		}
+	}
+}
 
-			//Recoloring
-			switch (type)
-			{
-			case Block::BlockType::Grass:
-			{
-				b.at(i).SetColor({ 124, 181, 0 });
-				break;
-			}
-			case Block::BlockType::Dirt:
-			{
-				b.at(i).SetColor({ 153, 102, 51 });
-				break;
-			}
-			case Block::BlockType::Stone:
-			{
-				b.at(i).SetColor({ 77, 77, 77 });
-				break;
-			}
-			case Block::BlockType::Water:
-			{
-				b.at(i).SetColor({ 0, 153, 255 });
-				break;
-			}
+Grid::Grid(Graphics & gfx)
+	:
+	gfx(gfx)
+{
+}
 
-			case Block::BlockType::Coal:
-			{
-				b.at(i).SetColor({ 51, 26, 0 });
-				break;
-			}
-			case Block::BlockType::Iron:
-			{
-				b.at(i).SetColor({ 255, 217, 179 });
-				break;
-			}
-			case Block::BlockType::Diamond:
-			{
-				b.at(i).SetColor({ 26, 255, 209 });
-				break;
-			}
-			}
+void Grid::DrawCell(Vec2 loc, Color c)
+{
+	for (int X = int(loc.x) * CellDimensions + Spacing; X < int(loc.x) * CellDimensions + CellDimensions; X++)
+	{
+		for (int Y = int(loc.y) * CellDimensions + Spacing; Y < int(loc.y) * CellDimensions + CellDimensions; Y++)
+		{
+			gfx.PutPixel(X, Y, c);
+		}
+	}
+}
+
+void Grid::DrawCell(Vec2 loc, World::Block::BlockType type)
+{
+	Color blockColor;
+
+	switch (type)
+	{
+	case Grid::World::Block::BlockType::Grass:
+	{
+		blockColor = { 124, 181, 0 };
+		break;
+	}
+	case Grid::World::Block::BlockType::Dirt:
+	{
+		blockColor = { 153, 102, 51 };
+		break;
+	}
+	case Grid::World::Block::BlockType::Stone:
+	{
+		blockColor = { 77, 77, 77 };
+		break;
+	}
+	case Grid::World::Block::BlockType::Water:
+	{
+		blockColor = { 0, 153, 255 };
+		break;
+	}
+	case Grid::World::Block::BlockType::Coal:
+	{
+		blockColor = { 51, 26, 0 };
+		break;
+	}
+	case Grid::World::Block::BlockType::Iron:
+	{
+		blockColor = { 255, 217, 179 };
+		break;
+	}
+	case Grid::World::Block::BlockType::Diamond:
+	{
+		blockColor = { 26, 255, 209 };
+		break;
+	}
+	}
+
+	for (int X = int(loc.x) * CellDimensions + Spacing; X < int(loc.x) * CellDimensions + CellDimensions; X++)
+	{
+		for (int Y = int(loc.y) * CellDimensions + Spacing; Y < int(loc.y) * CellDimensions + CellDimensions; Y++)
+		{
+			gfx.PutPixel(X, Y, blockColor);
 		}
 	}
 }

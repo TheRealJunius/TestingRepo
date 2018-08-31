@@ -2,56 +2,73 @@
 
 #include "Vec2.h"
 #include "Colors.h"
-#include "Grid.h"
 #include <vector>
 #include "Noise.h"
 #include <random>
+#include "Graphics.h"
 
-class World
+class Grid
 {
+private:
+	Graphics& gfx;
 public:
-	//Block class
-	class Block
+	//World class
+	class World
 	{
 	public:
-		enum class BlockType
+		//Block class
+		class Block
 		{
-			Grass,
-			Dirt,
-			Stone,
-			Water,
-			Coal,
-			Iron,
-			Diamond
+		public:
+			enum class BlockType
+			{
+				Grass,
+				Dirt,
+				Stone,
+				Water,
+				Coal,
+				Iron,
+				Diamond
+			};
+		public:
+			//Functions
+			Block(Vec2 in_loc, BlockType in_type);
+			void Draw(Grid& grd);
+			Vec2 GetLocation();
+			BlockType GetType();
+			void SetType(BlockType _type);
+			//Functions
+		private:
+			//Data
+			Vec2 loc;
+			BlockType type;
+			//Data
 		};
+		//Block class
 	public:
 		//Functions
-		Block(Vec2 in_loc, BlockType in_type);
-		void Draw(Grid& grd);
-		Vec2 GetLocation();
-		BlockType GetType();
-		void SetType(BlockType _type);
-		void SetColor(Color _c);
+		World();
+		void DrawBackground(Grid& grd);
 		//Functions
 	private:
+		//Functions
+		void AddOres(Block::BlockType type, std::vector<Block>& b, float chanceOfSpawningOnEachBlock);
+		//Functions
+	public:
 		//Data
-		Vec2 loc;
-		BlockType type;
-		Color c;
+		std::vector<Block> blocks;
 		//Data
 	};
-	//Block class
+	//World class
+
+	World world;
 public:
-	//Functions
-	World();
-	void DrawBackground(Grid& grd);
-	//Functions
-private:
-	//Functions
-	void AddOres(Block::BlockType type, std::vector<Block>& b, float chanceOfSpawningOnEachBlock);
-	//Functions
-public:
-	//Data
-	std::vector<Block> blocks;
-	//Data
+	static constexpr int Width = 64; //32
+	static constexpr int Height = 32; //16
+	static constexpr int CellDimensions = 16; //32
+	static constexpr int Spacing = 0; //2
+
+	Grid(Graphics& gfx);
+	void DrawCell(Vec2 loc, Color c);
+	void DrawCell(Vec2 loc, World::Block::BlockType type);
 };

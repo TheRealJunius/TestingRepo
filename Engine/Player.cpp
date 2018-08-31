@@ -20,7 +20,7 @@ void Player::ClampToScreen()
 	}
 }
 
-void Player::PlayerWithBlocksCollision(Vec2& dl, std::vector<World::Block> b)
+void Player::PlayerWithBlocksCollision(Vec2& dl, std::vector<Grid::World::Block> b)
 {
 	//Checking if there is a block on the player's right/left/down/up/diagonals and respond by changing the delta_loc
 	if ((dl.x != 0 && dl.y == 0) || (dl.x == 0 && dl.y != 0) || (dl.x != 0 && dl.y != 0))
@@ -35,7 +35,7 @@ void Player::PlayerWithBlocksCollision(Vec2& dl, std::vector<World::Block> b)
 	}
 }
 
-void Player::Jump(Keyboard & kbd, Vec2 & dl, std::vector<World::Block> b)
+void Player::Jump(Keyboard & kbd, Vec2 & dl, std::vector<Grid::World::Block> b)
 {
 	//Jumping Algorithm
 	if (kbd.KeyIsPressed(VK_UP))
@@ -107,7 +107,7 @@ void Player::Draw(Grid & grd) const
 	grd.DrawCell(loc, c);
 }
 
-void Player::Update(Keyboard& kbd, std::vector<World::Block> b)
+void Player::Update(Keyboard& kbd, std::vector<Grid::World::Block> b)
 {
 	Vec2 delta_loc = { 0,0 };
 
