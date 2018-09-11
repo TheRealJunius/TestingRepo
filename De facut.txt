@@ -1,6 +1,6 @@
 PANA AICI... dupa ce termini alea usoare fa astea:
 
+7. Adauga sprituri
 8. Adauga un ceas in dreapta sus si cu cat trece timpul, background-ul se intuneca care face noaptea
 9. Playerul poate sparge si sa puna blocuri
 10. Updateaza AddOre function
-11. POATE!!! adaug sprituri?
