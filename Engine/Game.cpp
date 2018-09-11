@@ -40,6 +40,9 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	//World
+	//World
+
 	//Player
 	player.Update(wnd.kbd, grd.world.blocks);
 	//Player
@@ -47,12 +50,8 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	//Delta Time
-	const float DT = ft.Mark();
-	//Delta Time
-
 	//World
-	grd.world.DrawBackground(grd, DT);
+	grd.world.DrawBackground(grd);
 
 	for (unsigned _int16 i = 0; i < grd.world.blocks.size(); i++)
 	{

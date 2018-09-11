@@ -105,20 +105,14 @@ Grid::World::World()
 	//Checking for errors
 }
 
-void Grid::World::DrawBackground(Grid & grd, float dt)
+void Grid::World::DrawBackground(Grid & grd)
 {
-	const float time = worldTime += dt;
-
-	if ( time > 0.0000000f && backgroundColor.GetB() >= 10)
-	{
-		backgroundColor = Color(backgroundColor.GetR() - 2, backgroundColor.GetG() - 2, backgroundColor.GetB() - 1);
-	}
-
 	for (int i = 0; i < Grid::Width; i++)
 	{
 		for (int j = 0; j < Grid::Height; j++)
 		{
-			grd.DrawCell({float(i), float(j)}, backgroundColor);
+			Color skyColor = { 204, 255, 238 };
+			grd.DrawCell({float(i), float(j)}, skyColor);
 		}
 	}
 }

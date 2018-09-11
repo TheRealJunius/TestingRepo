@@ -25,7 +25,6 @@
 #include "Graphics.h"
 #include "Player.h"
 #include "World.h"
-#include "FrameTimer.h"
 
 class Game
 {
@@ -45,8 +44,6 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	FrameTimer ft;
-
 	Grid grd;
 	Player player;
 	/********************************/
