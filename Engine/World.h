@@ -22,6 +22,7 @@ public:
 		public:
 			enum class BlockType
 			{
+				Air,
 				Grass,
 				Dirt,
 				Stone,
