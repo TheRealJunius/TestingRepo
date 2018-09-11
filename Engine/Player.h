@@ -25,4 +25,5 @@ private:
 	int moveCounter = 0;
 	bool jumping = false;
 	int jumpForce = 3; //Number of blocks the player can jump
+	static constexpr _int8 playerBreakingReach = 3;
 };

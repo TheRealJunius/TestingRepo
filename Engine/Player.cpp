@@ -112,11 +112,19 @@ void Player::BlockBreaking(Vec2& mousePos, std::vector<Grid::World::Block>& b)
 
 	assert(gridPos.x >= 0 && gridPos.x < Grid::Width && gridPos.y >= 0 && gridPos.y < Grid::Height);
 	
-	for (int i = 0; i < b.size(); i++)
+	Vec2 distanceBetweenMouseBreakingAndPlayer = gridPos - loc;
+
+	if (distanceBetweenMouseBreakingAndPlayer.GetLength() > float(playerBreakingReach))
 	{
-		if (b.at(i).GetLocation() == gridPos)
+	}
+	else
+	{
+		for (int i = 0; i < b.size(); i++)
 		{
-			b.at(i).SetType(Grid::World::Block::BlockType::Diamond);
+			if (b.at(i).GetLocation() == gridPos)
+			{
+				b.erase(b.begin() + i);
+			}
 		}
 	}
 }
