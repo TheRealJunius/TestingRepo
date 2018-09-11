@@ -48,7 +48,7 @@ public:
 	public:
 		//Functions
 		World();
-		void DrawBackground(Grid& grd);
+		void DrawBackground(Grid& grd, float dt);
 		//Functions
 	private:
 		//Functions
@@ -57,6 +57,11 @@ public:
 	public:
 		//Data
 		std::vector<Block> blocks;
+		//Data
+	private:
+		//Data
+		float worldTime = 0.0f;
+		Color backgroundColor = { 204, 255, 238 };
 		//Data
 	};
 	//World class
