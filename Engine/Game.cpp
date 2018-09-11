@@ -44,7 +44,7 @@ void Game::UpdateModel()
 	//World
 
 	//Player
-	player.Update(wnd.kbd, grd.world.blocks);
+	player.Update(wnd.kbd, wnd.mouse, grd.world.blocks);
 	//Player
 }
 
