@@ -111,9 +111,38 @@ void Grid::World::DrawBackground(Grid & grd)
 	{
 		for (int j = 0; j < Grid::Height; j++)
 		{
-			Color skyColor = { 204, 255, 238 };
 			grd.DrawCell({float(i), float(j)}, skyColor);
 		}
+	}
+}
+
+void Grid::World::Update(float dt)
+{
+	timeWorld += dt;
+
+	if (timeWorld >= 5.0f)
+	{
+		if (skyColor.GetR() > 40 && skyColor.GetG() > 62 && skyColor.GetB() > 89 && !reverseColor)
+		{
+			skyColor = Color(skyColor.GetR() - 3, skyColor.GetG() - 3, skyColor.GetB() - 3);
+			reverseColor = false;
+		}
+		else
+		{
+			reverseColor = true;
+		}
+
+		if (skyColor.GetR() < 204 && skyColor.GetG() <= 255 && skyColor.GetB() < 238 && reverseColor)
+		{
+			skyColor = Color(skyColor.GetR() + 3, skyColor.GetG() + 3, skyColor.GetB() + 3);
+			reverseColor = true;
+		}
+		else
+		{
+			reverseColor = false;
+		}
+
+		timeWorld = 0.0f;
 	}
 }
 

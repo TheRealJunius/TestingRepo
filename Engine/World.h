@@ -49,6 +49,7 @@ public:
 		//Functions
 		World();
 		void DrawBackground(Grid& grd);
+		void Update(float dt);
 		//Functions
 	private:
 		//Functions
@@ -57,6 +58,13 @@ public:
 	public:
 		//Data
 		std::vector<Block> blocks;
+		//Data
+	private:
+		//Data
+		Color skyColor = { 204, 255, 238 };
+		bool reverseColor = false;
+
+		float timeWorld = 0.0f;
 		//Data
 	};
 	//World class
