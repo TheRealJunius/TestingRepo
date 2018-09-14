@@ -26,7 +26,8 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	grd(gfx),
-	player(Vec2{Grid::Width /2 - 1, 0})
+	player(Vec2{Grid::Width /2 - 1, 0}),
+	mobs(Mobs::MobType::ClassicSergiu, Vec2(3.0f,5.0f))
 {
 }
 
@@ -65,4 +66,8 @@ void Game::ComposeFrame()
 	//Player
 	player.Draw(grd);
 	//Player
+
+	//Mobs
+	mobs.Draw(grd);
+	//Mobs
 }
