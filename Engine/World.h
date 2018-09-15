@@ -45,6 +45,29 @@ public:
 			//Data
 		};
 		//Block class
+
+		//Mob class
+		class Mob
+		{
+		public:
+			enum class MobType
+			{
+				ShortSergiu,
+				LongSergiu,
+				WeirdSergiu,
+			};
+		public:
+			//Functions
+			Mob(Mob::MobType type, Vec2 loc);
+			void Draw(Grid& grd);
+			//Functions
+		private:
+			//Data
+			Vec2 loc;
+			MobType type;
+			//Data
+		};
+		//Mob class
 	public:
 		//Functions
 		World();
@@ -79,4 +102,5 @@ public:
 	Grid(Graphics& gfx);
 	void DrawCell(Vec2 loc, Color c);
 	void DrawCell(Vec2 loc, World::Block::BlockType type);
+	void DrawCell(Vec2 loc, World::Mob::MobType type);
 };
