@@ -85,9 +85,9 @@ public:
 	private:
 		//Data
 		Color skyColor = { 204, 255, 238 };
-		bool reverseColor = false;
 
 		float timeWorld = 0.0f;
+		char backgroundSprite = 12;
 		//Data
 	};
 	//World class

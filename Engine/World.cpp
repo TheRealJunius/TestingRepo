@@ -120,26 +120,160 @@ void Grid::World::Update(float dt)
 {
 	timeWorld += dt;
 
-	if (timeWorld >= 5.0f)
+	if (timeWorld >= 25.0f) // One day durates 10 minutes, so 10 min * 60 to get 600 seconds and then / 24 (for each phase)
 	{
-		if (skyColor.GetR() > 40 && skyColor.GetG() > 62 && skyColor.GetB() > 89 && !reverseColor)
+		//Reset the animation
+		if (backgroundSprite == 24)
 		{
-			skyColor = Color(skyColor.GetR() - 3, skyColor.GetG() - 3, skyColor.GetB() - 3);
-			reverseColor = false;
-		}
-		else
-		{
-			reverseColor = true;
+			backgroundSprite = 0;
 		}
 
-		if (skyColor.GetR() < 204 && skyColor.GetG() <= 255 && skyColor.GetB() < 238 && reverseColor)
+		switch (backgroundSprite)
 		{
-			skyColor = Color(skyColor.GetR() + 3, skyColor.GetG() + 3, skyColor.GetB() + 3);
-			reverseColor = true;
+		case 0: //Perfect night
+		{
+			skyColor = { 0, 37, 51 };
+			backgroundSprite++;
+			break;
 		}
-		else
+		case 1:
 		{
-			reverseColor = false;
+			skyColor = { 17, 67, 62 };
+			backgroundSprite++;
+			break;
+		}
+		case 2:
+		{
+			skyColor = { 34, 85, 78 };
+			backgroundSprite++;
+			break;
+		}
+		case 3:
+		{
+			skyColor = { 51, 103, 94 };
+			backgroundSprite++;
+			break;
+		}
+		case 4:
+		{
+			skyColor = { 68, 121, 110 };
+			backgroundSprite++;
+			break;
+		}
+		case 5:
+		{
+			skyColor = { 85, 139, 126 };
+			backgroundSprite++;
+			break;
+		}
+		case 6:
+		{
+			skyColor = { 102, 157, 142 };
+			backgroundSprite++;
+			break;
+		}
+		case 7:
+		{
+			skyColor = { 119, 175, 158 };
+			backgroundSprite++;
+			break;
+		}
+		case 8:
+		{
+			skyColor = { 136, 193, 174 };
+			backgroundSprite++;
+			break;
+		}
+		case 9:
+		{
+			skyColor = { 153, 201, 190 };
+			backgroundSprite++;
+			break;
+		}
+		case 10:
+		{
+			skyColor = { 170, 219, 206 };
+			backgroundSprite++;
+			break;
+		}
+		case 11:
+		{
+			skyColor = { 187, 237, 222 };
+			backgroundSprite++;
+			break;
+		}
+		case 12: //Perfect day
+		{
+			skyColor = { 204, 255, 238 };
+			backgroundSprite++;
+			break;
+		}
+		case 13:
+		{
+			skyColor = { 187, 237, 222 };
+			backgroundSprite++;
+			break;
+		}
+		case 14:
+		{
+			skyColor = { 170, 219, 206 };
+			backgroundSprite++;
+			break;
+		}
+		case 15:
+		{
+			skyColor = { 153, 201, 190 };
+			backgroundSprite++;
+			break;
+		}
+		case 16:
+		{
+			skyColor = { 136, 193, 174 };
+			backgroundSprite++;
+			break;
+		}
+		case 17:
+		{
+			skyColor = { 119, 175, 158 };
+			backgroundSprite++;
+			break;
+		}
+		case 18:
+		{
+			skyColor = { 102, 157, 142 };
+			backgroundSprite++;
+			break;
+		}
+		case 19:
+		{
+			skyColor = { 85, 139, 126 };
+			backgroundSprite++;
+			break;
+		}
+		case 20:
+		{
+			skyColor = { 68, 121, 110 };
+			backgroundSprite++;
+			break;
+		}
+		case 21:
+		{
+			skyColor = { 51, 103, 94 };
+			backgroundSprite++;
+			break;
+		}
+		case 22:
+		{
+			skyColor = { 34, 85, 78 };
+			backgroundSprite++;
+			break;
+		}
+		case 23:
+		{
+			skyColor = { 17, 67, 62 };
+			backgroundSprite++;
+			break;
+		}
 		}
 
 		timeWorld = 0.0f;

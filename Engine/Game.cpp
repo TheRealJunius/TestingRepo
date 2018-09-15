@@ -41,7 +41,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	const float DT = 0.001f;
+	const float DT = ft.Mark();;
 
 	//World
 	grd.world.Update(DT);
