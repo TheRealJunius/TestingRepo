@@ -84,15 +84,16 @@ Grid::World::World()
 		}
 	}
 
-	AddOres(Block::BlockType::Coal, blocks, 2.5000000f);
+	/*AddOres(Block::BlockType::Coal, blocks, 2.5000000f);
 	AddOres(Block::BlockType::Iron, blocks, 2.3333333f);
-	AddOres(Block::BlockType::Diamond, blocks, 0.05f);
+	AddOres(Block::BlockType::Diamond, blocks, 0.05f);*/
+	AddOres(Block::BlockType::Coal, blocks, 1, 100, 4, 3);
 	//Underground filling
 
 	//Checking for errors
-	for (int i = 0; i < blocks.size(); i++)
+	for (unsigned int i = 0; i < blocks.size(); i++)
 	{
-		for (int I = 0; I < blocks.size(); I++)
+		for (unsigned int I = 0; I < blocks.size(); I++)
 		{
 			if (i != I)
 			{
@@ -298,7 +299,7 @@ void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, int chan
 	std::uniform_int_distribution<int> randomNumber(0, 100);
 
 	//Create the ores
-	for (int i = 0; i < b.size(); i++)
+	for (unsigned int i = 0; i < b.size(); i++)
 	{
 		if ((b.at(i).GetType() == Block::BlockType::Stone) && 
 			(randomNumber(rng) < chanceOfSpawningOnEachBlock))
@@ -308,20 +309,84 @@ void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, int chan
 	}
 }
 
-void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, int chanceOfSpawningOnEachBlock, int minChance, int chanceScalar)
+void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, char chanceOfSpawningCentre, char chanceOfCluster, char minChance, char chanceScalar)
 {
 	std::mt19937 rng(std::random_device{}());
-	std::uniform_real_distribution<float> randomNumber(0, 100000.0f);
+	std::uniform_int_distribution<int> randomNumber(0, 100);
+
+	std::vector<Block> SpawnerOreCentre;
+	std::vector<Block> Branch;
 
 	//Create the ores
-	for (int i = 0; i < b.size(); i++)
+	for (unsigned int i = 0; i < b.size(); i++)
 	{
-		if ((b.at(i).GetType() != Block::BlockType::Grass) &&
-			(b.at(i).GetType() != Block::BlockType::Dirt) &&
-			(float(fmod(randomNumber(rng), 100)) < chanceOfSpawningOnEachBlock))
+		if ((b.at(i).GetType() == Block::BlockType::Stone) &&
+			(randomNumber(rng) < chanceOfSpawningCentre))
 		{
-			b.at(i).SetType(type);
+			SpawnerOreCentre.push_back(b.at(i));
+			SpawnerOreCentre.at(i).SetType(type);
 		}
+	}
+
+	//Creating the ore chunking
+	for (unsigned int i = 0; i < SpawnerOreCentre.size(); i++)
+	{
+		char chanceOfChunk = chanceOfCluster;
+		
+		Branch.push_back(SpawnerOreCentre.at(i));
+
+		for (unsigned int branchIterator = 0; branchIterator < Branch.size(); branchIterator++)
+		{
+			if (chanceOfChunk > minChance)
+			{
+				for (unsigned int blockTesting = 0; blockTesting < b.size(); blockTesting++)
+				{
+					//TOP TESTING
+					if (b.at(blockTesting).GetLocation() == Branch.at(i).GetLocation() + Vec2(0, -1))
+					{
+						if (randomNumber(rng) < chanceOfChunk)
+						{
+							Branch.push_back(b.at(blockTesting));
+							b.at(blockTesting).SetType(type);
+						}
+					}
+					//RIGHT TESTING
+					if (b.at(blockTesting).GetLocation() == SpawnerOreCentre.at(i).GetLocation() + Vec2(1, 0))
+					{
+						if (randomNumber(rng) < chanceOfChunk)
+						{
+							Branch.push_back(b.at(blockTesting));
+							b.at(blockTesting).SetType(type);
+						}
+					}
+					//BOTTOM TESTING
+					if (b.at(blockTesting).GetLocation() == SpawnerOreCentre.at(i).GetLocation() + Vec2(0, 1))
+					{
+						if (randomNumber(rng) < chanceOfChunk)
+						{
+							Branch.push_back(b.at(blockTesting));
+							b.at(blockTesting).SetType(type);
+						}
+					}
+					//LEFT TESTING
+					if (b.at(blockTesting).GetLocation() == SpawnerOreCentre.at(i).GetLocation() + Vec2(-1, 0))
+					{
+						if (randomNumber(rng) < chanceOfChunk)
+						{
+							Branch.push_back(b.at(blockTesting));
+							b.at(blockTesting).SetType(type);
+						}
+					}
+				}
+			}
+			else
+			{
+				break;
+			}
+			chanceOfChunk /= chanceScalar;
+		}
+
+		Branch.clear();
 	}
 }
 

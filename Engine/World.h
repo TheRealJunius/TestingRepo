@@ -81,7 +81,7 @@ public:
 	private:
 		//Functions
 		void AddOres(Block::BlockType type, std::vector<Block>& b, int chanceOfSpawningOnEachBlock);
-		void AddOres(Block::BlockType type, std::vector<Block>& b, int chanceOfSpawningOnEachBlock, int minChance, int chanceScalar);
+		void AddOres(Block::BlockType type, std::vector<Block>& b, char chanceOfSpawningOnEachBlock, char chanceOfCluster, char minChance, char chanceScalar);
 		void MobSpawning(Mob::MobType type, std::vector<Mob>& m, int propabillity);
 		//Functions
 	public:
