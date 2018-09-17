@@ -1,7 +1,6 @@
 PANA AICI... dupa ce termini alea usoare fa astea:
 
 
-10. POATE adaug mobi
 11. Updateaza AddOre function
 12. Updatez algorithmul de world generation sa faca si structuri subterane ca cele din terraria sau minecraft poate
 13. Adauga inventar

@@ -52,14 +52,18 @@ public:
 		public:
 			enum class MobType
 			{
-				ShortSergiu,
-				LongSergiu,
-				WeirdSergiu,
+				Zombie,
+				Skeleton,
+				Creeper,
 			};
 		public:
 			//Functions
 			Mob(Mob::MobType type, Vec2 loc);
 			void Draw(Grid& grd);
+			//Functions
+		private:
+			//Functions
+			void Update(float dt);
 			//Functions
 		private:
 			//Data
@@ -76,17 +80,21 @@ public:
 		//Functions
 	private:
 		//Functions
-		void AddOres(Block::BlockType type, std::vector<Block>& b, float chanceOfSpawningOnEachBlock);
+		void AddOres(Block::BlockType type, std::vector<Block>& b, int chanceOfSpawningOnEachBlock);
+		void AddOres(Block::BlockType type, std::vector<Block>& b, int chanceOfSpawningOnEachBlock, int minChance, int chanceScalar);
+		void MobSpawning(Mob::MobType type, std::vector<Mob>& m, int propabillity);
 		//Functions
 	public:
 		//Data
 		std::vector<Block> blocks;
+		std::vector<Mob> mobs;
 		//Data
 	private:
 		//Data
 		Color skyColor = { 204, 255, 238 };
 
 		float timeWorld = 0.0f;
+		float mobSpawnTime = 0.0f;
 		char backgroundSprite = 12;
 		//Data
 	};

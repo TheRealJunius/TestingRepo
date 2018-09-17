@@ -26,8 +26,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	grd(gfx),
-	player(Vec2{Grid::Width /2 - 1, 0}),
-	mob(Grid::World::Mob::MobType::ShortSergiu, Vec2(0.0f, 0.0f))
+	player(Vec2{Grid::Width /2 - 1, 0})
 {
 }
 
@@ -66,8 +65,4 @@ void Game::ComposeFrame()
 	//Player
 	player.Draw(grd);
 	//Player
-
-	//Mobs
-	mob.Draw(grd);
-	//Mobs
 }

@@ -119,6 +119,7 @@ void Grid::World::DrawBackground(Grid & grd)
 void Grid::World::Update(float dt)
 {
 	timeWorld += dt;
+	mobSpawnTime += dt;
 
 	if (timeWorld >= 25.0f) // One day durates 10 minutes, so 10 min * 60 to get 600 seconds and then / 24 (for each phase)
 	{
@@ -278,9 +279,36 @@ void Grid::World::Update(float dt)
 
 		timeWorld = 0.0f;
 	}
+
+	//If is night, because night is starts at 20:00 to 4:00
+	if (mobSpawnTime >= 0.3333333f)
+	{
+		if ((backgroundSprite >= 20 && backgroundSprite <= 23) || (backgroundSprite >= 0 && backgroundSprite <= 4))
+		{
+			MobSpawning(World::Mob::MobType::Zombie, mobs, 60);
+			MobSpawning(World::Mob::MobType::Skeleton, mobs, 30);
+			MobSpawning(World::Mob::MobType::Creeper, mobs, 10);
+		}
+	}
 }
 
-void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, float chanceOfSpawningOnEachBlock)
+void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, int chanceOfSpawningOnEachBlock)
+{
+	std::mt19937 rng(std::random_device{}());
+	std::uniform_int_distribution<int> randomNumber(0, 100);
+
+	//Create the ores
+	for (int i = 0; i < b.size(); i++)
+	{
+		if ((b.at(i).GetType() == Block::BlockType::Stone) && 
+			(randomNumber(rng) < chanceOfSpawningOnEachBlock))
+		{
+			b.at(i).SetType(type);
+		}
+	}
+}
+
+void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, int chanceOfSpawningOnEachBlock, int minChance, int chanceScalar)
 {
 	std::mt19937 rng(std::random_device{}());
 	std::uniform_real_distribution<float> randomNumber(0, 100000.0f);
@@ -288,7 +316,7 @@ void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, float ch
 	//Create the ores
 	for (int i = 0; i < b.size(); i++)
 	{
-		if ((b.at(i).GetType() != Block::BlockType::Grass) && 
+		if ((b.at(i).GetType() != Block::BlockType::Grass) &&
 			(b.at(i).GetType() != Block::BlockType::Dirt) &&
 			(float(fmod(randomNumber(rng), 100)) < chanceOfSpawningOnEachBlock))
 		{
@@ -372,17 +400,17 @@ void Grid::DrawCell(Vec2 loc, World::Mob::MobType type)
 
 	switch (type)
 	{
-	case Grid::World::Mob::MobType::ShortSergiu:
+	case Grid::World::Mob::MobType::Zombie:
 	{
 		mobColor = { 64, 128, 0 };
 		break;
 	}
-	case Grid::World::Mob::MobType::LongSergiu:
+	case Grid::World::Mob::MobType::Skeleton:
 	{
 		mobColor = { 102, 102, 102 };
 		break;
 	}
-	case Grid::World::Mob::MobType::WeirdSergiu:
+	case Grid::World::Mob::MobType::Creeper:
 	{
 		mobColor = { 128, 255, 128 };
 		break;
@@ -407,5 +435,22 @@ Grid::World::Mob::Mob(Mob::MobType type, Vec2 loc)
 
 void Grid::World::Mob::Draw(Grid & grd)
 {
-	grd.DrawCell(loc, Mob::MobType::ShortSergiu);
+	grd.DrawCell(loc, type);
+}
+
+void Grid::World::Mob::Update(float dt)
+{
+	loc += Vec2(1.0f, 0.0f) * dt;
+}
+
+void Grid::World::MobSpawning(Mob::MobType type, std::vector<Mob>& m, int propabillity)
+{
+	std::mt19937 rng(std::random_device{}());
+	std::uniform_int_distribution<int> rand(0, 100);
+
+	if (rand(rng) <= propabillity)
+	{
+		World::Mob mob = World::Mob(type, Vec2(10.0f, 0.0f));
+		m.push_back(mob);
+	}
 }

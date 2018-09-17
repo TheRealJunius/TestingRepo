@@ -49,6 +49,5 @@ private:
 	FrameTimer ft;
 
 	Player player;
-	Grid::World::Mob mob;
 	/********************************/
 };
