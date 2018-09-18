@@ -87,7 +87,7 @@ Grid::World::World()
 	/*AddOres(Block::BlockType::Coal, blocks, 2.5000000f);
 	AddOres(Block::BlockType::Iron, blocks, 2.3333333f);
 	AddOres(Block::BlockType::Diamond, blocks, 0.05f);*/
-	AddOres(Block::BlockType::Coal, blocks, 1, 100, 4, 3);
+	AddOres(Block::BlockType::Coal, blocks, 1, 100, 10, 5);
 	//Underground filling
 
 	//Checking for errors
@@ -324,7 +324,7 @@ void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, char cha
 			(randomNumber(rng) < chanceOfSpawningCentre))
 		{
 			SpawnerOreCentre.push_back(b.at(i));
-			SpawnerOreCentre.at(i).SetType(type);
+			b.at(i).SetType(type);
 		}
 	}
 

@@ -102,10 +102,10 @@ public:
 
 	World world;
 public:
-	static constexpr int Width = 128; //64
-	static constexpr int Height = 64; //32
-	static constexpr int CellDimensions = 8; //16
-	static constexpr int Spacing = 0; //2
+	static constexpr int Width = 64; //128
+	static constexpr int Height = 32; //64
+	static constexpr int CellDimensions = 16; //8
+	static constexpr int Spacing = 2; //0
 
 	Grid(Graphics& gfx);
 	void DrawCell(Vec2 loc, Color c);
