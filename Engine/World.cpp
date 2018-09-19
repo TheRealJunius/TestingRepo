@@ -342,7 +342,7 @@ void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, char cha
 				for (unsigned int blockTesting = 0; blockTesting < b.size(); blockTesting++)
 				{
 					//TOP TESTING
-					if (b.at(blockTesting).GetLocation() == Branch.at(i).GetLocation() + Vec2(0, -1))
+					if (b.at(blockTesting).GetLocation() == Branch.at(i).GetLocation() + Vec2(0, -1) && b.at(blockTesting).GetType() == Block::BlockType::Stone)
 					{
 						if (randomNumber(rng) < chanceOfChunk)
 						{
@@ -351,7 +351,7 @@ void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, char cha
 						}
 					}
 					//RIGHT TESTING
-					if (b.at(blockTesting).GetLocation() == SpawnerOreCentre.at(i).GetLocation() + Vec2(1, 0))
+					if (b.at(blockTesting).GetLocation() == Branch.at(i).GetLocation() + Vec2(1, 0) && b.at(blockTesting).GetType() == Block::BlockType::Stone)
 					{
 						if (randomNumber(rng) < chanceOfChunk)
 						{
@@ -360,7 +360,7 @@ void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, char cha
 						}
 					}
 					//BOTTOM TESTING
-					if (b.at(blockTesting).GetLocation() == SpawnerOreCentre.at(i).GetLocation() + Vec2(0, 1))
+					if (b.at(blockTesting).GetLocation() == Branch.at(i).GetLocation() + Vec2(0, 1) && b.at(blockTesting).GetType() == Block::BlockType::Stone)
 					{
 						if (randomNumber(rng) < chanceOfChunk)
 						{
@@ -369,7 +369,7 @@ void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, char cha
 						}
 					}
 					//LEFT TESTING
-					if (b.at(blockTesting).GetLocation() == SpawnerOreCentre.at(i).GetLocation() + Vec2(-1, 0))
+					if (b.at(blockTesting).GetLocation() == Branch.at(i).GetLocation() + Vec2(-1, 0) && b.at(blockTesting).GetType() == Block::BlockType::Stone)
 					{
 						if (randomNumber(rng) < chanceOfChunk)
 						{
@@ -383,10 +383,9 @@ void Grid::World::AddOres(Block::BlockType type, std::vector<Block>& b, char cha
 			{
 				break;
 			}
+
 			chanceOfChunk /= chanceScalar;
 		}
-
-		Branch.clear();
 	}
 }
 
