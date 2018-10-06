@@ -1,7 +1,7 @@
 PANA AICI... dupa ce termini alea usoare fa astea:
 
 
-12. Cu click dreapta pune blocuri( va pune decaf blocuri de grass defapt pana cand fac inventarul sau...
+
 13. Adaug apa in algorithmul de world generation, ceva gen, sub nivelul X, inlocuieste air blocurile cu apa.
 14. Adauga inventar
 15. Updatez algorithmul de world generation sa faca si structuri subterane ca cele din terraria sau minecraft poate
